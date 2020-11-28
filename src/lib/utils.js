@@ -12,11 +12,11 @@ module.exports = {
 
         return age
     },
-    graduation(graduation) {
-        if (graduation == "highSchool") return "Ensino Médio Completo"
-        if (graduation == "university") return "Ensino Superior Completo"
-        if (graduation == "master") return "Mestrado"
-        if (graduation == "doctorate") return "Doutorado"
+    education_level(education_level) {
+        if (education_level == "highSchool") return "Ensino Médio Completo"
+        if (education_level == "university") return "Ensino Superior Completo"
+        if (education_level == "master") return "Mestrado"
+        if (education_level == "doctorate") return "Doutorado"
     },
     class_type(class_type) {
         if (class_type == 'presential') return 'Presencial'
