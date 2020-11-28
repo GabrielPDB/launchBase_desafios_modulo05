@@ -5,17 +5,31 @@ const Teacher = require('../models/Teacher')
 
 module.exports = {
     index(req, res) {
+        const { filter } = req.query
 
-        Teacher.all(function (teachers) {
-            teachers = teachers.map(function (teacher) {
-                return {
-                    ...teacher,
-                    subjects_taugh: teacher.subjects_taugh.split(',')
-                }
+        if (filter) {
+            Teacher.findBy(filter, function (teachers) {
+                teachers = teachers.map(function (teacher) {
+                    return {
+                        ...teacher,
+                        subjects_taugh: teacher.subjects_taugh.split(',')
+                    }
+                })
+
+                return res.render('teachers/index', { teachers, filter })
             })
+        } else {
+            Teacher.all(function (teachers) {
+                teachers = teachers.map(function (teacher) {
+                    return {
+                        ...teacher,
+                        subjects_taugh: teacher.subjects_taugh.split(',')
+                    }
+                })
 
-            return res.render('teachers/index', { teachers })
-        })
+                return res.render('teachers/index', { teachers })
+            })
+        }
 
     },
     create(req, res) {
@@ -69,12 +83,12 @@ module.exports = {
             }
         }
 
-        Teacher.update(req.body, function() {
+        Teacher.update(req.body, function () {
             return res.redirect(`/teachers/${req.body.id}`)
         })
     },
     delete(req, res) {
-        Teacher.delete(req.body.id, function() {
+        Teacher.delete(req.body.id, function () {
             return res.redirect(`/teachers`)
         })
     }
